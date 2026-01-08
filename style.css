@@ -42,7 +42,7 @@ body {
     width: 100%;
     max-width: 440px;
     max-height: calc(100vh - 40px);
-    padding: 20px;
+    padding: 16px;
     animation: slideUp 0.5s ease-out;
 }
 
@@ -61,20 +61,20 @@ body {
 /* Header */
 .header {
     text-align: center;
-    margin-bottom: 16px;
+    margin-bottom: 10px;
 }
 
 .hlogo {
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .hlogo img {
-    max-width: 85px;
+    max-width: 70px;
     height: auto;
 }
 
 h1 {
-    font-size: 22px;
+    font-size: 19px;
     font-weight: 700;
     margin-bottom: 0;
     color: var(--text-primary);
@@ -85,10 +85,10 @@ h1 {
 .password-display {
     position: relative;
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.5) 100%);
-    border-radius: 10px;
-    padding: 14px;
-    margin-bottom: 10px;
-    min-height: 58px;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 8px;
+    min-height: 50px;
     display: flex;
     align-items: center;
     border: 2px solid rgba(47, 139, 133, 0.2);
@@ -101,32 +101,32 @@ h1 {
 
 .password-wrapper {
     flex: 1;
-    margin-right: 12px;
+    margin-right: 10px;
     overflow: hidden;
 }
 
 #result {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     word-break: break-all;
     color: var(--text-primary);
     font-family: 'Courier New', monospace;
-    line-height: 1.5;
+    line-height: 1.4;
 }
 
 .btn-icon {
     background: var(--primary-teal);
     border: none;
     color: var(--text-primary);
-    width: 44px;
-    height: 44px;
-    border-radius: 8px;
+    width: 38px;
+    height: 38px;
+    border-radius: 6px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
+    font-size: 16px;
     transition: var(--transition);
     flex-shrink: 0;
     box-shadow: 0 2px 8px rgba(47, 139, 133, 0.3);
@@ -149,12 +149,12 @@ h1 {
 
 /* Notification */
 .notification {
-    padding: 10px 14px;
-    border-radius: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
     text-align: center;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 500;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     opacity: 0;
     transform: translateY(-10px);
     transition: var(--transition);
@@ -183,15 +183,15 @@ h1 {
 /* Settings Card */
 .settings-card {
     background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-    padding: 16px;
-    margin-bottom: 14px;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 10px;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .setting-group {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 .setting-group:last-child {
@@ -203,19 +203,19 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
-    font-size: 14px;
+    margin-bottom: 6px;
+    font-size: 13px;
     font-weight: 500;
     color: var(--text-primary);
 }
 
 .length-value {
     background: var(--primary-teal);
-    padding: 3px 10px;
-    border-radius: 6px;
+    padding: 2px 8px;
+    border-radius: 5px;
     font-weight: 700;
-    font-size: 15px;
-    min-width: 38px;
+    font-size: 14px;
+    min-width: 35px;
     text-align: center;
 }
 
@@ -223,7 +223,7 @@ h1 {
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
-    height: 6px;
+    height: 5px;
     border-radius: 3px;
     background: rgba(255, 255, 255, 0.1);
     outline: none;
@@ -233,8 +233,8 @@ h1 {
 .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
     background: var(--primary-teal);
     cursor: pointer;
@@ -248,8 +248,8 @@ h1 {
 }
 
 .slider::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
     background: var(--primary-teal);
     cursor: pointer;
@@ -277,7 +277,7 @@ h1 {
 .divider {
     height: 1px;
     background: rgba(255, 255, 255, 0.1);
-    margin: 12px 0;
+    margin: 10px 0;
 }
 
 /* Custom Checkbox */
@@ -286,8 +286,8 @@ h1 {
     align-items: center;
     cursor: pointer;
     user-select: none;
-    padding: 6px;
-    border-radius: 8px;
+    padding: 4px;
+    border-radius: 6px;
     transition: var(--transition);
     position: relative;
 }
@@ -303,11 +303,11 @@ h1 {
 }
 
 .checkbox-custom {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 5px;
-    margin-right: 10px;
+    border-radius: 4px;
+    margin-right: 8px;
     position: relative;
     transition: var(--transition);
     flex-shrink: 0;
@@ -321,8 +321,8 @@ h1 {
 .checkbox-label input[type="checkbox"]:checked~.checkbox-custom::after {
     content: '';
     position: absolute;
-    left: 5px;
-    top: 2px;
+    left: 4px;
+    top: 1px;
     width: 5px;
     height: 9px;
     border: solid white;
@@ -336,7 +336,7 @@ h1 {
 }
 
 .checkbox-text {
-    font-size: 14px;
+    font-size: 13px;
     color: var(--text-primary);
     font-weight: 400;
 }
@@ -347,18 +347,18 @@ h1 {
     background: linear-gradient(135deg, var(--primary-teal) 0%, var(--primary-teal-hover) 100%);
     border: none;
     color: var(--text-primary);
-    padding: 13px 18px;
-    border-radius: 10px;
-    font-size: 15px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 6px;
     transition: var(--transition);
     box-shadow: 0 4px 12px rgba(47, 139, 133, 0.3);
-    margin-bottom: 14px;
+    margin-bottom: 10px;
 }
 
 .btn-generate:hover {
@@ -376,7 +376,130 @@ h1 {
 }
 
 .btn-generate i {
-    font-size: 16px;
+    font-size: 14px;
+}
+
+/* Bulk Export Section */
+.bulk-export-section {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+.bulk-header {
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    user-select: none;
+}
+
+.bulk-header:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.bulk-header i:first-child {
+    font-size: 14px;
+    color: var(--primary-teal);
+}
+
+.bulk-header span {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.toggle-icon {
+    font-size: 11px;
+    color: var(--text-secondary);
+    transition: transform 0.3s ease;
+}
+
+.bulk-header.active .toggle-icon {
+    transform: rotate(180deg);
+}
+
+.bulk-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding: 0 12px;
+}
+
+.bulk-content.show {
+    max-height: 150px;
+    padding: 0 12px 12px 12px;
+}
+
+.bulk-input-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.bulk-input-group label {
+    font-size: 12px;
+    color: var(--text-primary);
+    font-weight: 400;
+}
+
+.bulk-input {
+    width: 70px;
+    padding: 5px 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.3);
+    color: var(--text-primary);
+    border-radius: 5px;
+    font-size: 13px;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.bulk-input:focus {
+    outline: 2px solid rgba(47, 139, 133, 0.4);
+    outline-offset: 2px;
+    border-color: var(--primary-teal);
+}
+
+.btn-export {
+    width: 100%;
+    background: rgba(47, 139, 133, 0.2);
+    border: 1px solid var(--primary-teal);
+    color: var(--text-primary);
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: var(--transition);
+}
+
+.btn-export:hover {
+    background: rgba(47, 139, 133, 0.3);
+    transform: translateY(-1px);
+}
+
+.btn-export:active {
+    transform: translateY(0);
+}
+
+.btn-export:focus {
+    outline: 2px solid rgba(47, 139, 133, 0.4);
+    outline-offset: 2px;
+}
+
+.btn-export i {
+    font-size: 13px;
 }
 
 /* Footer */
@@ -441,58 +564,77 @@ h1 {
     }
 
     .container {
-        padding: 18px;
+        padding: 14px;
         max-height: calc(100vh - 20px);
     }
 
     h1 {
-        font-size: 20px;
+        font-size: 18px;
     }
 
     .password-display {
-        padding: 12px;
-        min-height: 56px;
+        padding: 10px;
+        min-height: 48px;
     }
 
     #result {
-        font-size: 15px;
-    }
-
-    .btn-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 17px;
-    }
-
-    .settings-card {
-        padding: 14px;
-    }
-
-    .checkbox-text {
         font-size: 13px;
     }
 
+    .btn-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 15px;
+    }
+
+    .settings-card {
+        padding: 10px;
+    }
+
+    .checkbox-text {
+        font-size: 12px;
+    }
+
     .btn-generate {
-        padding: 12px 16px;
-        font-size: 14px;
+        padding: 9px 14px;
+        font-size: 13px;
+    }
+
+    .bulk-header {
+        padding: 7px 10px;
+        font-size: 12px;
+    }
+
+    .bulk-input {
+        width: 65px;
+        font-size: 12px;
+    }
+
+    .btn-export {
+        padding: 7px 12px;
+        font-size: 12px;
     }
 }
 
 @media (max-width: 360px) {
     .container {
-        padding: 16px;
+        padding: 12px;
     }
 
     h1 {
-        font-size: 19px;
+        font-size: 17px;
     }
 
     .hlogo img {
-        max-width: 70px;
+        max-width: 65px;
     }
 
     #result {
-        font-size: 14px;
+        font-size: 12px;
+    }
+
+    .bulk-input-group label {
+        font-size: 11px;
     }
 }
 
