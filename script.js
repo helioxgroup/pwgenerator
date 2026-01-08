@@ -8,6 +8,10 @@ const symbolsEl = document.getElementById('symbols');
 const generateEl = document.getElementById('generate');
 const clipboardEl = document.getElementById('clipboard');
 const notificationEl = document.getElementById('notification');
+const bulkToggleEl = document.getElementById('bulkToggle');
+const bulkContentEl = document.getElementById('bulkContent');
+const bulkCountEl = document.getElementById('bulkCount');
+const exportCsvEl = document.getElementById('exportCsv');
 
 const randomFunc = {
     lower: getRandomLower,
@@ -15,6 +19,92 @@ const randomFunc = {
     number: getRandomNumber,
     symbol: getRandomSymbol
 };
+
+// Toggle bulk export section
+bulkToggleEl.addEventListener('click', () => {
+    bulkToggleEl.classList.toggle('active');
+    bulkContentEl.classList.toggle('show');
+});
+
+// Export CSV functionality
+exportCsvEl.addEventListener('click', () => {
+    const count = parseInt(bulkCountEl.value);
+    
+    // Validate count
+    if (isNaN(count) || count < 1 || count > 500) {
+        showNotification('Please enter a number between 1 and 500!', 'error');
+        return;
+    }
+    
+    const length = +lengthEl.value;
+    const hasLower = lowercaseEl.checked;
+    const hasUpper = uppercaseEl.checked;
+    const hasNumber = numbersEl.checked;
+    const hasSymbol = symbolsEl.checked;
+    
+    // Validate at least one option is selected
+    if (!hasLower && !hasUpper && !hasNumber && !hasSymbol) {
+        showNotification('Please select at least one character type!', 'error');
+        return;
+    }
+    
+    // Generate passwords
+    const passwords = [];
+    for (let i = 0; i < count; i++) {
+        const password = createPassword(hasLower, hasUpper, hasNumber, hasSymbol, length);
+        passwords.push(password);
+    }
+    
+    // Create CSV content
+    const csvContent = generateCSV(passwords, length, hasLower, hasUpper, hasNumber, hasSymbol);
+    
+    // Download CSV
+    downloadCSV(csvContent, `passwords_${count}_${new Date().toISOString().split('T')[0]}.csv`);
+    
+    showNotification(`Successfully exported ${count} passwords!`, 'success');
+});
+
+// Generate CSV content
+function generateCSV(passwords, length, hasLower, hasUpper, hasNumber, hasSymbol) {
+    // CSV Header
+    let csv = 'Password,Length,Character Types,Generated Date\n';
+    
+    // Character types used
+    const types = [];
+    if (hasLower) types.push('Lowercase');
+    if (hasUpper) types.push('Uppercase');
+    if (hasNumber) types.push('Numbers');
+    if (hasSymbol) types.push('Symbols');
+    const typesStr = types.join(' + ');
+    
+    // Current date and time
+    const now = new Date().toLocaleString();
+    
+    // Add each password as a row
+    passwords.forEach(password => {
+        csv += `"${password}",${length},"${typesStr}","${now}"\n`;
+    });
+    
+    return csv;
+}
+
+// Download CSV file
+function downloadCSV(content, filename) {
+    const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    
+    if (navigator.msSaveBlob) { // IE 10+
+        navigator.msSaveBlob(blob, filename);
+    } else {
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        link.style.display = 'none';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(link.href);
+    }
+}
 
 // Update length value display when slider changes
 lengthEl.addEventListener('input', () => {
