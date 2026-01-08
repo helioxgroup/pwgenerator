@@ -19,6 +19,7 @@ const randomFunc = {
 // Update length value display when slider changes
 lengthEl.addEventListener('input', () => {
     lengthValueEl.textContent = lengthEl.value;
+    generatePassword(); // Generate new password on slider change
 });
 
 // Generate password on page load
@@ -85,6 +86,12 @@ function showNotification(message, type = 'success') {
 
 // Generate password on button click
 generateEl.addEventListener('click', generatePassword);
+
+// Generate password when checkboxes change
+uppercaseEl.addEventListener('change', generatePassword);
+lowercaseEl.addEventListener('change', generatePassword);
+numbersEl.addEventListener('change', generatePassword);
+symbolsEl.addEventListener('change', generatePassword);
 
 // Generate password when Enter is pressed on checkboxes
 document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
