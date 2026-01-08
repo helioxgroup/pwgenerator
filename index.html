@@ -13,43 +13,81 @@
 
 <body>
     <div class="container">
-        <div class="hlogo"><img src="https://helioxgroup.com/wp-content/uploads/2019/01/heliox-logo-white.png" alt="Heliox Group" width="80"></div>
-        <h2>Password Generator</h2>
-        <div class="result-container">
-            <span id="result"></span>
-            <button class="btn" id="clipboard">
-                <i class="far fa-clipboard"></i>
+        <header class="header">
+            <div class="hlogo">
+                <img src="https://helioxgroup.com/wp-content/uploads/2019/01/heliox-logo-white.png" alt="Heliox Group"
+                    width="100">
+            </div>
+            <h1>Password Generator</h1>
+        </header>
+
+        <div class="password-display">
+            <div class="password-wrapper">
+                <span id="result" aria-live="polite" aria-label="Generated password">Generating...</span>
+            </div>
+            <button class="btn-icon" id="clipboard" aria-label="Copy password to clipboard" title="Copy to clipboard">
+                <i class="far fa-clipboard" aria-hidden="true"></i>
             </button>
         </div>
-        <div class="settings">
-            <div class="setting">
-                <label>Password Length</label>
-                <input class="lengthstyle" type="number" id="length" min="6" max="26" value="18">
+
+        <div id="notification" class="notification" role="alert" aria-live="polite"></div>
+
+        <div class="settings-card">
+            <div class="setting-group">
+                <label for="length" class="setting-label">
+                    <span>Password Length</span>
+                    <span class="length-value" id="lengthValue">18</span>
+                </label>
+                <input type="range" id="length" min="6" max="32" value="18" class="slider"
+                    aria-describedby="length-hint">
             </div>
-            <div class="setting">
-                <label>Include uppercase letters</label>
-                <input type="checkbox" id="uppercase" checked>
+
+            <div class="divider"></div>
+
+            <div class="setting-group">
+                <label for="uppercase" class="checkbox-label">
+                    <input type="checkbox" id="uppercase" checked>
+                    <span class="checkbox-custom"></span>
+                    <span class="checkbox-text">Uppercase Letters (A-Z)</span>
+                </label>
             </div>
-            <div class="setting">
-                <label>Include lowercase letters</label>
-                <input type="checkbox" id="lowercase" checked>
+
+            <div class="setting-group">
+                <label for="lowercase" class="checkbox-label">
+                    <input type="checkbox" id="lowercase" checked>
+                    <span class="checkbox-custom"></span>
+                    <span class="checkbox-text">Lowercase Letters (a-z)</span>
+                </label>
             </div>
-            <div class="setting">
-                <label>Include numbers</label>
-                <input type="checkbox" id="numbers" checked>
+
+            <div class="setting-group">
+                <label for="numbers" class="checkbox-label">
+                    <input type="checkbox" id="numbers" checked>
+                    <span class="checkbox-custom"></span>
+                    <span class="checkbox-text">Numbers (0-9)</span>
+                </label>
             </div>
-            <div class="setting">
-                <label>Include symbols</label>
-                <input type="checkbox" id="symbols" checked>
+
+            <div class="setting-group">
+                <label for="symbols" class="checkbox-label">
+                    <input type="checkbox" id="symbols" checked>
+                    <span class="checkbox-custom"></span>
+                    <span class="checkbox-text">Symbols (!@#$%^&*)</span>
+                </label>
             </div>
         </div>
 
-        <button class="btn btn-large" id="generate">
-            Generate Password
+        <button class="btn-generate" id="generate">
+            <i class="fas fa-key" aria-hidden="true"></i>
+            <span>Generate Password</span>
         </button>
-        <br>
-    <div class="by">By Edward Jaeger</div>
+
+        <footer class="footer">
+            <p>Made with <span class="heart">♥</span> by <a href="https://sites.google.com/helioxgroup.com/edwardjaeger"
+                    target="_blank" rel="noopener noreferrer">Edward Jaeger</a></p>
+        </footer>
     </div>
+
     <script src="script.js"></script>
 </body>
 
