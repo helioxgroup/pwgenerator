@@ -1,77 +1,198 @@
-const resultEl = document.getElementById('result')
-const lengthEl = document.getElementById('length')
-const uppercaseEl = document.getElementById('uppercase')
-const lowercaseEl = document.getElementById('lowercase')
-const numbersEl = document.getElementById('numbers')
-const symbolsEl = document.getElementById('symbols')
-const generateEl = document.getElementById('generate')
-const clipboardEl = document.getElementById('clipboard')
+const resultEl = document.getElementById('result');
+const lengthEl = document.getElementById('length');
+const lengthValueEl = document.getElementById('lengthValue');
+const uppercaseEl = document.getElementById('uppercase');
+const lowercaseEl = document.getElementById('lowercase');
+const numbersEl = document.getElementById('numbers');
+const symbolsEl = document.getElementById('symbols');
+const generateEl = document.getElementById('generate');
+const clipboardEl = document.getElementById('clipboard');
+const notificationEl = document.getElementById('notification');
 
 const randomFunc = {
     lower: getRandomLower,
     upper: getRandomUpper,
     number: getRandomNumber,
     symbol: getRandomSymbol
-}
+};
 
-clipboardEl.addEventListener('click', () => {
-    const textarea = document.createElement('textarea')
-    const password = resultEl.innerText
+// Update length value display when slider changes
+lengthEl.addEventListener('input', () => {
+    lengthValueEl.textContent = lengthEl.value;
+});
 
-    if(!password) { return }
+// Generate password on page load
+window.addEventListener('DOMContentLoaded', () => {
+    generatePassword();
+});
 
-    textarea.value = password
-    document.body.appendChild(textarea)
-    textarea.select()
-    document.execCommand('copy')
-    textarea.remove()
-    alert('Password copied to clipboard!')
-})
-
-generateEl.addEventListener('click', () => {
-    const length = +lengthEl.value
-    const hasLower = lowercaseEl.checked
-    const hasUpper = uppercaseEl.checked
-    const hasNumber = numbersEl.checked
-    const hasSymbol = symbolsEl.checked
-
-    resultEl.innerText = generatePassword(hasLower, hasUpper, hasNumber, hasSymbol, length)
-})
-
-function generatePassword(lower, upper, number, symbol, length) {
-    let generatedPassword = ''
-    const typesCount = lower + upper + number + symbol
-    const typesArr = [{lower}, {upper}, {number}, {symbol}].filter(item => Object.values(item)[0])
+// Copy to clipboard with modern API
+clipboardEl.addEventListener('click', async () => {
+    const password = resultEl.innerText;
     
-    if(typesCount === 0) {
-        return ''
+    if (!password || password === 'Generating...') {
+        showNotification('No password to copy!', 'error');
+        return;
     }
-
-    for(let i = 0; i < length; i += typesCount) {
-        typesArr.forEach(type => {
-            const funcName = Object.keys(type)[0]
-            generatedPassword += randomFunc[funcName]()
-        })
+    
+    try {
+        // Use modern Clipboard API
+        await navigator.clipboard.writeText(password);
+        showNotification('Password copied to clipboard!', 'success');
+        
+        // Visual feedback - briefly change icon
+        const icon = clipboardEl.querySelector('i');
+        icon.classList.remove('fa-clipboard');
+        icon.classList.add('fa-check');
+        setTimeout(() => {
+            icon.classList.remove('fa-check');
+            icon.classList.add('fa-clipboard');
+        }, 2000);
+    } catch (err) {
+        // Fallback for older browsers
+        fallbackCopyToClipboard(password);
     }
+});
 
-    const finalPassword = generatedPassword.slice(0, length)
-
-    return finalPassword
+// Fallback copy method for older browsers
+function fallbackCopyToClipboard(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    
+    try {
+        document.execCommand('copy');
+        showNotification('Password copied to clipboard!', 'success');
+    } catch (err) {
+        showNotification('Failed to copy password', 'error');
+    }
+    
+    document.body.removeChild(textarea);
 }
 
+// Show notification instead of alert
+function showNotification(message, type = 'success') {
+    notificationEl.textContent = message;
+    notificationEl.className = `notification ${type} show`;
+    
+    setTimeout(() => {
+        notificationEl.classList.remove('show');
+    }, 3000);
+}
+
+// Generate password on button click
+generateEl.addEventListener('click', generatePassword);
+
+// Generate password when Enter is pressed on checkboxes
+document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+    checkbox.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            generatePassword();
+        }
+    });
+});
+
+// Generate password function
+function generatePassword() {
+    const length = +lengthEl.value;
+    const hasLower = lowercaseEl.checked;
+    const hasUpper = uppercaseEl.checked;
+    const hasNumber = numbersEl.checked;
+    const hasSymbol = symbolsEl.checked;
+    
+    // Validate at least one option is selected
+    if (!hasLower && !hasUpper && !hasNumber && !hasSymbol) {
+        showNotification('Please select at least one character type!', 'error');
+        resultEl.innerText = '';
+        return;
+    }
+    
+    // Validate length
+    if (length < 6 || length > 32) {
+        showNotification('Password length must be between 6 and 32!', 'error');
+        return;
+    }
+    
+    const password = createPassword(hasLower, hasUpper, hasNumber, hasSymbol, length);
+    
+    // Animate password generation
+    resultEl.style.opacity = '0';
+    setTimeout(() => {
+        resultEl.innerText = password;
+        resultEl.style.opacity = '1';
+    }, 150);
+}
+
+// Create password with crypto-secure randomness and proper shuffling
+function createPassword(lower, upper, number, symbol, length) {
+    let chars = '';
+    let password = '';
+    
+    // Build character set
+    if (lower) chars += 'abcdefghijklmnopqrstuvwxyz';
+    if (upper) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    if (number) chars += '0123456789';
+    if (symbol) chars += '!@#$%^&*(){}[]=<>/,.';
+    
+    // Ensure at least one character from each selected type
+    const types = [];
+    if (lower) types.push(getRandomLower());
+    if (upper) types.push(getRandomUpper());
+    if (number) types.push(getRandomNumber());
+    if (symbol) types.push(getRandomSymbol());
+    
+    // Add one of each required type first
+    password = types.join('');
+    
+    // Fill the rest with random characters from the full set
+    for (let i = password.length; i < length; i++) {
+        password += chars[getSecureRandomInt(chars.length)];
+    }
+    
+    // Shuffle the password to avoid predictable patterns
+    return shuffleString(password);
+}
+
+// Shuffle string using Fisher-Yates algorithm with crypto-secure randomness
+function shuffleString(str) {
+    const arr = str.split('');
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = getSecureRandomInt(i + 1);
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr.join('');
+}
+
+// Get crypto-secure random integer
+function getSecureRandomInt(max) {
+    const randomBuffer = new Uint32Array(1);
+    crypto.getRandomValues(randomBuffer);
+    return randomBuffer[0] % max;
+}
+
+// Generate random lowercase letter
 function getRandomLower() {
-    return String.fromCharCode(Math.floor(Math.random() * 26) + 97)
+    return String.fromCharCode(getSecureRandomInt(26) + 97);
 }
 
+// Generate random uppercase letter
 function getRandomUpper() {
-    return String.fromCharCode(Math.floor(Math.random() * 26) + 65)
+    return String.fromCharCode(getSecureRandomInt(26) + 65);
 }
 
+// Generate random number
 function getRandomNumber() {
-    return String.fromCharCode(Math.floor(Math.random() * 10) + 48)
+    return String.fromCharCode(getSecureRandomInt(10) + 48);
 }
 
+// Generate random symbol
 function getRandomSymbol() {
-    const symbols = '!@#$%^&*(){}[]=<>/,.'
-    return symbols[Math.floor(Math.random() * symbols.length)]
+    const symbols = '!@#$%^&*(){}[]=<>/,.';
+    return symbols[getSecureRandomInt(symbols.length)];
 }
+
+// Add transition for password display
+resultEl.style.transition = 'opacity 0.15s ease';
