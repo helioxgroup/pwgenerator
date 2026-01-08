@@ -82,6 +82,24 @@
             <span>Generate Password</span>
         </button>
 
+        <div class="bulk-export-section">
+            <div class="bulk-header" id="bulkToggle">
+                <i class="fas fa-download" aria-hidden="true"></i>
+                <span>Bulk Export to CSV</span>
+                <i class="fas fa-chevron-down toggle-icon" aria-hidden="true"></i>
+            </div>
+            <div class="bulk-content" id="bulkContent">
+                <div class="bulk-input-group">
+                    <label for="bulkCount">Number of passwords:</label>
+                    <input type="number" id="bulkCount" min="1" max="500" value="10" class="bulk-input">
+                </div>
+                <button class="btn-export" id="exportCsv">
+                    <i class="fas fa-file-csv" aria-hidden="true"></i>
+                    <span>Export CSV</span>
+                </button>
+            </div>
+        </div>
+
         <footer class="footer">
             <p>Made with <span class="heart">♥</span> by <a href="https://sites.google.com/helioxgroup.com/edwardjaeger"
                     target="_blank" rel="noopener noreferrer">Edward Jaeger</a></p>
