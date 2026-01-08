@@ -4,7 +4,7 @@ A modern, secure password generator built with vanilla JavaScript, HTML, and CSS
 
 ## Overview
 
-This password generator was created by Edward Jaeger at Heliox Group to provide a simple, fast, and secure way to create strong passwords directly in your browser. All password generation happens client-side, meaning your passwords never leave your device.
+This password generator was created by Edward Jaeger to provide a simple, fast, and secure way to create strong passwords directly in your browser. All password generation happens client-side, meaning your passwords never leave your device.
 
 ## Features
 
@@ -158,7 +158,7 @@ This project uses a proprietary license that does not permit modifications. Howe
 
 ## License
 
-Copyright 2026 Edward Jaeger, Heliox Group. All rights reserved.
+Copyright 2026 Edward Jaeger. All rights reserved.
 
 This software is provided for use as-is. You may use this software freely, but you may not modify, adapt, or create derivative works. See the LICENSE file for complete terms.
 
