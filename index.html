@@ -121,13 +121,47 @@
 
     <script src="script.js"></script>
     
-    <!-- Service Worker Registration -->
+    <!-- Service Worker Registration with Auto-Update -->
     <script>
         if ('serviceWorker' in navigator) {
+            let refreshing = false;
+            
+            // Detect controller change and reload page
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+                if (!refreshing) {
+                    refreshing = true;
+                    window.location.reload();
+                }
+            });
+            
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/pwgenerator/service-worker.js')
                     .then(registration => {
                         console.log('Service Worker registered successfully:', registration.scope);
+                        
+                        // Check for updates every 60 seconds while app is open
+                        setInterval(() => {
+                            registration.update();
+                        }, 60000);
+                        
+                        // Check for updates when app becomes visible
+                        document.addEventListener('visibilitychange', () => {
+                            if (!document.hidden) {
+                                registration.update();
+                            }
+                        });
+                        
+                        // Listen for waiting service worker
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    // New service worker available, tell it to take over
+                                    newWorker.postMessage({ type: 'SKIP_WAITING' });
+                                }
+                            });
+                        });
                     })
                     .catch(error => {
                         console.log('Service Worker registration failed:', error);
