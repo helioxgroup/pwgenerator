@@ -9,15 +9,24 @@ const urlsToCache = [
   'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'
 ];
 
+// Listen for skip waiting message
+self.addEventListener('message', event => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+});
+
 // Install event - cache assets
 self.addEventListener('install', event => {
+  // Skip waiting to activate immediately
+  self.skipWaiting();
+  
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
         console.log('Service Worker: Caching files');
         return cache.addAll(urlsToCache);
       })
-      .then(() => self.skipWaiting())
   );
 });
 
@@ -73,11 +82,4 @@ self.addEventListener('fetch', event => {
         });
       })
   );
-});
-
-// Listen for messages from the client
-self.addEventListener('message', event => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
-    self.skipWaiting();
-  }
 });
